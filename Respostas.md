@@ -143,3 +143,54 @@ $$E_{interacao} = 2 \times \hat{\beta}_3$$
 **Conclusão:** Não há inconsistência entre os dois métodos — ambos são concordantes e representam o mesmo fenômeno, apenas em escalas diferentes. O efeito de interação é negativo e estatisticamente significativo (p < 0,001) em ambas as abordagens, confirmando que **threads e memória interagem** de forma que a combinação dos dois no nível alto (+1) gera um resultado maior do que a soma dos efeitos individuais.
 
 ---
+
+## Questão 03 — Análise Gráfica da Interação
+
+### Valores médios utilizados no gráfico
+
+Os valores abaixo são as médias de **12 réplicas** por combinação de fatores, obtidos do dataset individual:
+
+| Threads (x₁) | Memória (x₂) | Média do Tempo de Execução (ms) |
+|:---:|:---:|:---:|
+| −1 (poucos) | −1 (pequena) | **248,62** |
+| −1 (poucos) | +1 (grande)  | **219,69** |
+| +1 (muitos) | −1 (pequena) | **208,87** |
+| +1 (muitos) | +1 (grande)  | **124,45** |
+
+---
+
+### Gráfico de Interação
+
+> Script: `grafico_q1_interacao.py`
+
+![Grafico de Interacao](grafico_q1_interacao.png)
+
+---
+
+### Análise do Gráfico
+
+**Gráfico esquerdo (Efeito de Threads por nível de Memória):**
+
+- A linha **vermelha** (Memória = −1, pequena) vai de **248,62 ms** (T=−1) para **208,87 ms** (T=+1) → queda de **39,75 ms**
+- A linha **azul** (Memória = +1, grande) vai de **219,69 ms** (T=−1) para **124,45 ms** (T=+1) → queda de **95,24 ms**
+
+As linhas **não são paralelas** — essa é a evidência visual de interação. O efeito de aumentar threads é muito mais intenso quando a memória também está no nível alto.
+
+**Gráfico direito (Efeito de Memória por nível de Threads):**
+
+- A linha **laranja** (Threads = −1, poucos) vai de **248,62 ms** (M=−1) para **219,69 ms** (M=+1) → queda de **28,93 ms**
+- A linha **verde** (Threads = +1, muitos) vai de **208,87 ms** (M=−1) para **124,45 ms** (M=+1) → queda de **84,42 ms**
+
+Novamente as linhas não são paralelas, confirmando que o efeito de aumentar a memória também é muito mais intenso quando há muitos threads.
+
+---
+
+### Conclusão
+
+Ambos os gráficos evidenciam **interação sinérgica** entre Threads e Memória:
+
+- Quando apenas **um** fator está no nível alto, o ganho de desempenho é moderado (≈ 29–40 ms de redução)
+- Quando **ambos** estão no nível alto (+1, +1), o ganho é expressivo — tempo cai de 248,62 ms para 124,45 ms, uma **redução de 124,17 ms (≈ 50%)** em relação à pior configuração
+- A inclinação diferente das retas nos dois gráficos confirma que **o efeito de cada fator depende do nível do outro**, o que caracteriza interação positiva (sinérgica) entre os fatores
+
+---
