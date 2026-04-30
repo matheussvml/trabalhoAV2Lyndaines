@@ -440,3 +440,54 @@ Isso ocorre porque o planejamento fatorial 2² está **balanceado**, com 12 rép
 **Conclusão:** o modelo não apresenta problema de instabilidade dos coeficientes por correlação entre variáveis independentes. Portanto, os coeficientes estimados na regressão são adequados para interpretação individual.
 
 ---
+
+## Questão 08 — Avaliação da Afirmação sobre Alta Multicolinearidade
+
+Um profissional afirmou que há alta multicolinearidade no modelo. Com base nos resultados obtidos, **não concordo com essa afirmação**.
+
+---
+
+### Evidências Numéricas
+
+Na Questão 07, a matriz de correlação de Pearson entre as variáveis independentes apresentou valores praticamente nulos:
+
+| Relação entre variáveis independentes | Correlação de Pearson |
+|---|---:|
+| Threads × Memória | -3,238e-17 |
+| Threads × Interação | -3,238e-17 |
+| Memória × Interação | 1,527e-16 |
+
+O maior valor absoluto de correlação entre variáveis independentes foi:
+
+$$\boxed{1{,}527e-16}$$
+
+Esse valor é extremamente próximo de zero e pode ser interpretado como **0,000e+00** na prática. Portanto, não há indicação de associação linear forte entre os preditores.
+
+Além disso, o determinante da matriz de correlação das variáveis independentes foi:
+
+$$\boxed{det(R) = 1{,}000e+00}$$
+
+Um determinante próximo de 1 indica que as variáveis independentes são praticamente ortogonais. Se houvesse alta multicolinearidade, esse determinante tenderia a ficar próximo de 0.
+
+---
+
+### Interpretação
+
+A multicolinearidade ocorre quando duas ou mais variáveis independentes carregam informação muito parecida, dificultando a separação dos efeitos individuais no modelo. Nesse caso, isso **não acontece**, pois:
+
+- Threads e Memória têm correlação praticamente nula;
+- O termo de Interação também é praticamente não correlacionado com os efeitos principais;
+- O experimento é fatorial 2² balanceado, com 12 réplicas por combinação;
+- A codificação em -1 e +1 torna as colunas do modelo ortogonais.
+
+Assim, os coeficientes $\beta_1$, $\beta_2$ e $\beta_3$ não sofrem instabilidade causada por multicolinearidade. Isso reforça a confiabilidade das interpretações feitas anteriormente sobre Threads, Memória e Interação.
+
+---
+
+### Conclusão
+
+**Não há alta multicolinearidade no modelo.** Pelo contrário, os resultados indicam ausência de multicolinearidade relevante, pois as correlações entre variáveis independentes estão na ordem de $10^{-16}$ e o determinante da matriz de correlação é igual a **1,000e+00**.
+
+Portanto, eu **discordo** da afirmação do profissional.
+
+---
