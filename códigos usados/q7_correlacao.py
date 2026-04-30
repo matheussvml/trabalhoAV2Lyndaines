@@ -1,8 +1,12 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+from pathlib import Path
 
 
-df = pd.read_csv("dataset.csv")
+SCRIPT_DIR = Path(__file__).resolve().parent
+BASE_DIR = SCRIPT_DIR if (SCRIPT_DIR / "dataset.csv").exists() else SCRIPT_DIR.parent
+
+df = pd.read_csv(BASE_DIR / "dataset.csv")
 df["interacao"] = df["threads"] * df["memoria"]
 
 colunas = ["threads", "memoria", "interacao", "tempo_execucao"]
@@ -29,5 +33,5 @@ for i in range(len(colunas)):
 ax.set_title("Matriz de Correlacao de Pearson")
 fig.colorbar(imagem, ax=ax, label="Correlacao")
 plt.tight_layout()
-plt.savefig("q7_matriz_correlacao.png", dpi=200)
+plt.savefig(BASE_DIR / "q7_matriz_correlacao.png", dpi=200)
 plt.close()

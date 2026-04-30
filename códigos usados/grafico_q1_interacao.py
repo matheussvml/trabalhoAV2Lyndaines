@@ -10,6 +10,11 @@ import statsmodels.api as sm
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from pathlib import Path
+
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+BASE_DIR = SCRIPT_DIR if (SCRIPT_DIR / "Respostas.md").exists() else SCRIPT_DIR.parent
 
 # Reproduzir o dataset individual
 nome = "Matheus Vasconcelos de Macena Lima"
@@ -99,5 +104,6 @@ axes[1].legend(fontsize=8.5)
 axes[1].grid(True, linestyle="--", alpha=0.6)
 
 plt.tight_layout()
-plt.savefig("grafico_q1_interacao.png", dpi=150, bbox_inches="tight")
-print("\nGrafico salvo em: grafico_q1_interacao.png")
+saida = BASE_DIR / "grafico_q1_interacao.png"
+plt.savefig(saida, dpi=150, bbox_inches="tight")
+print(f"\nGrafico salvo em: {saida}")

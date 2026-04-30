@@ -12,7 +12,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
-BASE_DIR = Path(__file__).resolve().parent
+SCRIPT_DIR = Path(__file__).resolve().parent
+BASE_DIR = SCRIPT_DIR if (SCRIPT_DIR / "Respostas.md").exists() else SCRIPT_DIR.parent
 MARKDOWN = BASE_DIR / "Respostas.md"
 TEMPLATE = BASE_DIR / "Template - Trabalho - 26.1.docx"
 DOCX = BASE_DIR / "Template - Trabalho - 26.1 copia.docx"

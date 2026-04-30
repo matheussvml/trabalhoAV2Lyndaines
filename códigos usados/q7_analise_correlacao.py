@@ -13,7 +13,8 @@ from numpy.linalg import inv, det, lstsq
 from pathlib import Path
 
 
-BASE_DIR = Path(__file__).resolve().parent
+SCRIPT_DIR = Path(__file__).resolve().parent
+BASE_DIR = SCRIPT_DIR if (SCRIPT_DIR / 'dataset.csv').exists() else SCRIPT_DIR.parent
 
 # ── 1. Carregamento ────────────────────────────────────────────────────────────
 df = pd.read_csv(BASE_DIR / 'dataset.csv')

@@ -1,9 +1,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
 
-df = pd.read_csv("dataset.csv")
+SCRIPT_DIR = Path(__file__).resolve().parent
+BASE_DIR = SCRIPT_DIR if (SCRIPT_DIR / "dataset.csv").exists() else SCRIPT_DIR.parent
+
+df = pd.read_csv(BASE_DIR / "dataset.csv")
 df["interacao"] = df["threads"] * df["memoria"]
 
 X = np.column_stack(
@@ -56,5 +60,5 @@ axes[1].tick_params(axis="x", rotation=25)
 axes[1].grid(axis="y", alpha=0.25)
 
 plt.tight_layout()
-plt.savefig("q9_residuos.png", dpi=200, bbox_inches="tight")
+plt.savefig(BASE_DIR / "q9_residuos.png", dpi=200, bbox_inches="tight")
 plt.close()
