@@ -491,3 +491,67 @@ Assim, os coeficientes $\beta_1$, $\beta_2$ e $\beta_3$ não sofrem instabilidad
 Portanto, eu **discordo** da afirmação do profissional.
 
 ---
+
+## Questão 09 — Diagnóstico dos Resíduos e Heterocedasticidade
+
+Para analisar os resíduos, foi ajustado novamente o modelo completo:
+
+$$y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_1X_2 + \varepsilon$$
+
+Em seguida, foram calculados os valores ajustados e os resíduos:
+
+$$e_i = y_i - \hat{y}_i$$
+
+> Script: `q9_residuos.py`
+
+---
+
+### Gráfico dos Resíduos
+
+![Diagnóstico dos Resíduos](q9_residuos.png)
+
+---
+
+### Resumo Numérico dos Resíduos
+
+| Medida | Valor |
+|---|---:|
+| Média dos resíduos | 3,464e-14 |
+| Desvio padrão dos resíduos | 5,599e+00 |
+| Menor resíduo | -8,531e+00 |
+| Maior resíduo | 1,925e+01 |
+
+A média dos resíduos é praticamente zero, como esperado em um modelo ajustado por mínimos quadrados ordinários.
+
+---
+
+### Resíduos por Configuração
+
+| Threads | Memória | Média dos resíduos | Desvio padrão | Mínimo | Máximo |
+|---:|---:|---:|---:|---:|---:|
+| -1 | -1 | 1,895e-14 | 4,597e+00 | -8,531e+00 | 7,386e+00 |
+| -1 | +1 | 5,211e-14 | 3,774e+00 | -4,954e+00 | 6,060e+00 |
+| +1 | -1 | 4,737e-14 | 5,029e+00 | -6,453e+00 | 9,245e+00 |
+| +1 | +1 | 2,013e-14 | 8,561e+00 | -8,084e+00 | 1,925e+01 |
+
+---
+
+### Análise do Padrão dos Resíduos
+
+**Dispersão:** os resíduos ficam distribuídos ao redor de zero em todas as configurações. Isso indica que o modelo não apresenta viés sistemático evidente, pois não há tendência clara de superestimar ou subestimar uma configuração específica.
+
+**Funil:** no gráfico de resíduos versus valores ajustados, não aparece um formato de funil bem definido. A dispersão não cresce de forma contínua conforme os valores ajustados aumentam ou diminuem. A configuração **Threads = +1 e Memória = +1** apresenta maior variabilidade, com desvio padrão de **8,561e+00**, mas isso parece estar associado a alguns valores mais extremos dentro desse grupo, especialmente o resíduo máximo de **1,925e+01**.
+
+**Aleatoriedade:** os pontos aparecem espalhados de forma aproximadamente aleatória em torno da linha horizontal zero. Como os valores ajustados se agrupam nas quatro combinações fatoriais, o gráfico mostra quatro faixas verticais, o que é esperado para um experimento fatorial 2².
+
+---
+
+### Conclusão sobre Heterocedasticidade
+
+Não há evidência visual forte de heterocedasticidade. O gráfico não apresenta um padrão de funil claro, e os resíduos permanecem centrados em zero nas quatro configurações.
+
+Existe uma **diferença moderada de dispersão** na configuração **(+1, +1)**, cujo desvio padrão residual foi maior que os demais. Porém, isoladamente, esse comportamento não é suficiente para afirmar que há heterocedasticidade relevante no modelo.
+
+**Conclusão:** os resíduos apresentam comportamento aproximadamente aleatório e centrado em zero. Portanto, com base na análise gráfica e nos valores obtidos, **não há evidência forte de heterocedasticidade**.
+
+---
