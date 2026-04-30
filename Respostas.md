@@ -379,3 +379,58 @@ Como **F calculado = 1019,70 >> F_crítico = 2,82**, e o **p-valor = 1,16 × 10�
 O conjunto de preditores (Threads, Memória e a Interação) explica de forma estatisticamente significativa a variação no tempo de execução. O R² = **0,986** indica que **98,6% da variabilidade total** do tempo de execução é explicada pelo modelo, o que caracteriza um ajuste excelente. Apenas 1,4% da variação é devida a fatores não contemplados (ruído aleatório).
 
 ---
+
+## Questão 07 — Matriz de Correlação de Pearson
+
+Para avaliar a relação linear entre as variáveis do modelo, foi calculada a matriz de correlação de Pearson usando o dataset individual. Além das variáveis originais, foi incluído o termo de interação:
+
+$$X_1X_2 = Threads \times Memória$$
+
+> Script: `q7_correlacao.py`
+
+---
+
+### Matriz de Correlação de Pearson
+
+| Variável | Threads | Memória | Interação | Tempo de execução |
+|---|---:|---:|---:|---:|
+| **Threads** | 1,000 | 0,000 | 0,000 | -0,725 |
+| **Memória** | 0,000 | 1,000 | 0,000 | -0,609 |
+| **Interação** | 0,000 | 0,000 | 1,000 | -0,298 |
+| **Tempo de execução** | -0,725 | -0,609 | -0,298 | 1,000 |
+
+---
+
+### Maior correlação entre variáveis independentes
+
+Considerando apenas as variáveis independentes do modelo:
+
+- Threads ($X_1$)
+- Memória ($X_2$)
+- Interação ($X_1X_2$)
+
+a matriz de correlação é:
+
+| Variável independente | Threads | Memória | Interação |
+|---|---:|---:|---:|
+| **Threads** | 1,000 | 0,000 | 0,000 |
+| **Memória** | 0,000 | 1,000 | 0,000 |
+| **Interação** | 0,000 | 0,000 | 1,000 |
+
+O maior valor absoluto de correlação entre variáveis independentes é:
+
+$$\boxed{0{,}000}$$
+
+---
+
+### Discussão sobre estabilidade dos coeficientes
+
+Como as correlações entre as variáveis independentes são iguais a **0,000**, não há evidência de multicolinearidade entre Threads, Memória e o termo de Interação.
+
+Isso ocorre porque o planejamento fatorial 2² está **balanceado**, com 12 réplicas para cada combinação de níveis. Com a codificação em **-1 e +1**, as colunas do modelo ficam ortogonais entre si.
+
+**Impacto nos coeficientes:** a ausência de correlação entre os preditores aumenta a estabilidade das estimativas de $\beta_1$, $\beta_2$ e $\beta_3$. Assim, cada coeficiente pode ser interpretado de forma mais confiável, pois o efeito de uma variável não está sendo confundido com o efeito das outras.
+
+**Conclusão:** o modelo não apresenta problema de instabilidade dos coeficientes por correlação entre variáveis independentes. Portanto, os coeficientes estimados na regressão são adequados para interpretação individual.
+
+---
