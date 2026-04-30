@@ -614,3 +614,103 @@ $$2 \times \hat{\beta}_1 = -67{,}498 \text{ ms}$$
 Portanto, a regressão e o cálculo fatorial levam à mesma interpretação: **aumentar o número de threads reduz significativamente o tempo de execução do sistema**.
 
 ---
+
+## Questão 11 — Escolha da Configuração Threads/Memória
+
+A configuração escolhida seria:
+
+$$\boxed{Threads = +1 \text{ e Memória = +1}}$$
+
+Ou seja, eu escolheria a configuração com **mais threads** e **mais memória**.
+
+---
+
+### Justificativa pelas médias observadas
+
+As médias de tempo de execução para cada combinação foram:
+
+| Threads | Memória | Média do tempo de execução |
+|---:|---:|---:|
+| -1 | -1 | 248,62 ms |
+| -1 | +1 | 219,69 ms |
+| +1 | -1 | 208,87 ms |
+| +1 | +1 | 124,45 ms |
+
+A menor média foi obtida na configuração:
+
+$$Threads = +1,\quad Memória = +1$$
+
+com tempo médio de:
+
+$$\boxed{124{,}45 \text{ ms}}$$
+
+Essa configuração reduz o tempo em relação à pior configuração (-1, -1) em:
+
+$$248{,}62 - 124{,}45 = 124{,}17 \text{ ms}$$
+
+Isso representa uma redução aproximada de:
+
+$$\frac{124{,}17}{248{,}62} \times 100 \approx 49{,}94\%$$
+
+---
+
+### Justificativa pelos efeitos
+
+Os efeitos calculados indicam que aumentar os dois fatores reduz o tempo de execução:
+
+| Efeito | Valor | Interpretação |
+|---|---:|---|
+| Threads | -67,50 ms | mais threads reduzem o tempo médio |
+| Memória | -56,67 ms | mais memória reduz o tempo médio |
+| Interação Threads × Memória | -27,74 ms | usar os dois no nível alto intensifica o ganho |
+
+Como todos os efeitos são negativos, aumentar Threads e Memória é benéfico para a variável resposta, pois o objetivo é reduzir o tempo de execução.
+
+---
+
+### Justificativa pela regressão
+
+O modelo ajustado foi:
+
+$$\hat{y} = 200{,}408 - 33{,}749X_1 - 28{,}334X_2 - 13{,}872X_1X_2$$
+
+Os coeficientes de Threads e Memória são negativos:
+
+- $\hat{\beta}_1 = -33{,}749$
+- $\hat{\beta}_2 = -28{,}334$
+
+Isso mostra que aumentar Threads e Memória reduz o tempo de execução. Além disso, o coeficiente de interação também é negativo:
+
+$$\hat{\beta}_3 = -13{,}872$$
+
+Esse valor indica que a combinação dos dois fatores no nível alto gera uma redução adicional no tempo de execução, além dos efeitos principais.
+
+Substituindo $X_1 = +1$ e $X_2 = +1$ no modelo:
+
+$$\hat{y} = 200{,}408 - 33{,}749 - 28{,}334 - 13{,}872 = 124{,}45 \text{ ms}$$
+
+---
+
+### Justificativa pelo gráfico
+
+O gráfico de interação mostra que as linhas não são paralelas, indicando que existe interação entre Threads e Memória. A maior queda ocorre quando se passa para a configuração com ambos os fatores em nível alto.
+
+Portanto, o gráfico confirma que a melhor decisão não é aumentar apenas Threads ou apenas Memória, mas sim combinar:
+
+$$Threads = +1 \quad \text{com} \quad Memória = +1$$
+
+---
+
+### Conclusão
+
+Eu escolheria a configuração **Threads = +1 e Memória = +1**, pois ela apresentou:
+
+- menor tempo médio observado: **124,45 ms**;
+- redução de aproximadamente **49,94%** em relação à pior configuração;
+- efeitos principais negativos para Threads e Memória;
+- interação negativa, indicando ganho adicional quando os dois fatores estão no nível alto;
+- confirmação visual pelo gráfico de interação.
+
+Assim, essa configuração é a melhor escolha para minimizar o tempo de execução do sistema.
+
+---
