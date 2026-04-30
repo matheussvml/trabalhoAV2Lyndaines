@@ -695,6 +695,10 @@ $$\hat{y} = 200{,}408 - 33{,}749 - 28{,}334 - 13{,}872 = 124{,}45 \text{ ms}$$
 
 O gráfico de interação mostra que as linhas não são paralelas, indicando que existe interação entre Threads e Memória. A maior queda ocorre quando se passa para a configuração com ambos os fatores em nível alto.
 
+![Gráfico de Interação Threads x Memória](grafico_q1_interacao.png)
+
+No gráfico, a configuração **Threads = +1 e Memória = +1** aparece como o ponto de menor tempo médio, com aproximadamente **124,45 ms**. Além disso, a inclinação das linhas mostra que o ganho ao aumentar Threads é maior quando a Memória também está no nível alto.
+
 Portanto, o gráfico confirma que a melhor decisão não é aumentar apenas Threads ou apenas Memória, mas sim combinar:
 
 $$Threads = +1 \quad \text{com} \quad Memória = +1$$
