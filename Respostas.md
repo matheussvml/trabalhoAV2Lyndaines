@@ -256,3 +256,80 @@ $$\hat{y} = 200{,}408 - 33{,}749\,X_1 - 28{,}334\,X_2 - 13{,}872\,X_1 X_2$$
 > **Nota:** Os valores preditos acima diferem das médias observadas por grupo porque o modelo OLS minimiza os resíduos em relação às **48 observações individuais** (não às médias de grupo). Não obstante, o modelo explica **R² = 0,986** da variância total, confirmando excelente ajuste.
 
 ---
+
+## Questão 05 — Teste de Hipótese para cada Coeficiente da Regressão
+
+Para cada coeficiente β, o teste verifica se ele é estatisticamente diferente de zero, usando a **estatística t** com nível de significância **α = 0,05** e **44 graus de liberdade** (n − k − 1 = 48 − 3 − 1 = 44).
+
+O valor crítico é: **t_crítico(44, α/2 = 0,025) ≈ ±2,015**
+
+---
+
+### β₁ — Coeficiente de Threads (X₁)
+
+| Item | Valor |
+|---|---|
+| Estimativa (β̂₁) | −33,749 |
+| Erro padrão | 0,835 |
+| Estatística t | −40,405 |
+| **p-valor** | **< 0,001** |
+
+**Hipóteses:**
+- H₀: β₁ = 0 (Threads não tem efeito significativo no tempo de execução)
+- H₁: β₁ ≠ 0 (Threads tem efeito significativo no tempo de execução)
+
+**Decisão:** **Rejeita H₀**
+
+**Justificativa:** A estatística t = −40,405 está muito além da região crítica (|t| > 2,015). O p-valor < 0,001 é extremamente inferior ao nível de significância α = 0,05. Há evidência estatística forte de que o número de threads afeta significativamente o tempo de execução.
+
+---
+
+### β₂ — Coeficiente de Memória (X₂)
+
+| Item | Valor |
+|---|---|
+| Estimativa (β̂₂) | −28,334 |
+| Erro padrão | 0,835 |
+| Estatística t | −33,922 |
+| **p-valor** | **< 0,001** |
+
+**Hipóteses:**
+- H₀: β₂ = 0 (Memória não tem efeito significativo no tempo de execução)
+- H₁: β₂ ≠ 0 (Memória tem efeito significativo no tempo de execução)
+
+**Decisão:** **Rejeita H₀**
+
+**Justificativa:** A estatística t = −33,922 está muito além da região crítica (|t| > 2,015). O p-valor < 0,001 é extremamente inferior a α = 0,05. Há evidência estatística forte de que a quantidade de memória afeta significativamente o tempo de execução.
+
+---
+
+### β₃ — Coeficiente de Interação (X₁X₂)
+
+| Item | Valor |
+|---|---|
+| Estimativa (β̂₃) | −13,872 |
+| Erro padrão | 0,835 |
+| Estatística t | −16,608 |
+| **p-valor** | **< 0,001** |
+
+**Hipóteses:**
+- H₀: β₃ = 0 (Não há interação significativa entre Threads e Memória)
+- H₁: β₃ ≠ 0 (Existe interação significativa entre Threads e Memória)
+
+**Decisão:** **Rejeita H₀**
+
+**Justificativa:** A estatística t = −16,608 está muito além da região crítica (|t| > 2,015). O p-valor < 0,001 é extremamente inferior a α = 0,05. Há evidência estatística forte de que a interação entre threads e memória é real e não pode ser ignorada no modelo.
+
+---
+
+### Resumo dos Testes
+
+| Coeficiente | β estimado | Estatística t | p-valor | Decisão (α = 0,05) |
+|:---:|:---:|:---:|:---:|:---:|
+| β₁ (Threads) | −33,749 | −40,405 | < 0,001 | **Rejeita H₀** |
+| β₂ (Memória) | −28,334 | −33,922 | < 0,001 | **Rejeita H₀** |
+| β₃ (Interação) | −13,872 | −16,608 | < 0,001 | **Rejeita H₀** |
+
+**Conclusão geral:** Os três coeficientes são estatisticamente significativos ao nível de 5%. O modelo confirma que tanto os efeitos principais (Threads e Memória) quanto o efeito de interação entre eles exercem influência real e significativa sobre o tempo de execução do sistema.
+
+---
