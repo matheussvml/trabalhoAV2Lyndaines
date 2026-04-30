@@ -394,10 +394,16 @@ $$X_1X_2 = Threads \times Memória$$
 
 | Variável | Threads | Memória | Interação | Tempo de execução |
 |---|---:|---:|---:|---:|
-| **Threads** | 1,000 | 0,000 | 0,000 | -0,725 |
-| **Memória** | 0,000 | 1,000 | 0,000 | -0,609 |
-| **Interação** | 0,000 | 0,000 | 1,000 | -0,298 |
-| **Tempo de execução** | -0,725 | -0,609 | -0,298 | 1,000 |
+| **Threads** | 1,000e+00 | 0,000e+00 | 0,000e+00 | -7,253e-01 |
+| **Memória** | 0,000e+00 | 1,000e+00 | 0,000e+00 | -6,090e-01 |
+| **Interação** | 0,000e+00 | 0,000e+00 | 1,000e+00 | -2,981e-01 |
+| **Tempo de execução** | -7,253e-01 | -6,090e-01 | -2,981e-01 | 1,000e+00 |
+
+---
+
+### Gráfico da Matriz de Correlação
+
+![Matriz de Correlação de Pearson](q7_matriz_correlacao.png)
 
 ---
 
@@ -413,19 +419,19 @@ a matriz de correlação é:
 
 | Variável independente | Threads | Memória | Interação |
 |---|---:|---:|---:|
-| **Threads** | 1,000 | 0,000 | 0,000 |
-| **Memória** | 0,000 | 1,000 | 0,000 |
-| **Interação** | 0,000 | 0,000 | 1,000 |
+| **Threads** | 1,000e+00 | 0,000e+00 | 0,000e+00 |
+| **Memória** | 0,000e+00 | 1,000e+00 | 0,000e+00 |
+| **Interação** | 0,000e+00 | 0,000e+00 | 1,000e+00 |
 
 O maior valor absoluto de correlação entre variáveis independentes é:
 
-$$\boxed{0{,}000}$$
+$$\boxed{0{,}000e+00}$$
 
 ---
 
 ### Discussão sobre estabilidade dos coeficientes
 
-Como as correlações entre as variáveis independentes são iguais a **0,000**, não há evidência de multicolinearidade entre Threads, Memória e o termo de Interação.
+Como as correlações entre as variáveis independentes são iguais a **0,000e+00**, não há evidência de multicolinearidade entre Threads, Memória e o termo de Interação.
 
 Isso ocorre porque o planejamento fatorial 2² está **balanceado**, com 12 réplicas para cada combinação de níveis. Com a codificação em **-1 e +1**, as colunas do modelo ficam ortogonais entre si.
 
