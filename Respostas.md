@@ -92,3 +92,54 @@ Estatisticamente, confirmada pela regressão OLS:
 **Conclusão:** Os dois fatores **não agem de forma independente**. Para obter o melhor desempenho, é preciso combinar **mais threads com mais memória** simultaneamente — a combinação T=+1, M=+1 obteve o menor tempo médio de execução: **124,45 ms**.
 
 ---
+
+## Questão 02 — Comparação: Efeito de Interação Manual × Coeficiente da Regressão
+
+A questão pede a comparação entre o efeito de interação calculado pelo método fatorial (Questão 01) e o coeficiente β₃ estimado pela regressão OLS.
+
+---
+
+### Efeito de Interação — Cálculo Manual (método fatorial 2²)
+
+Conforme calculado na Questão 01d:
+
+$$E_{T \times M} = \frac{(\bar{y}_{-1,-1} - \bar{y}_{-1,+1}) - (\bar{y}_{+1,-1} - \bar{y}_{+1,+1})}{2} = \frac{(248{,}62 - 219{,}69) - (208{,}87 - 124{,}45)}{2}$$
+
+$$E_{T \times M} = \frac{28{,}93 - 84{,}42}{2} = \frac{-55{,}49}{2} \approx \mathbf{-27{,}74}$$
+
+---
+
+### Coeficiente de Interação — Regressão OLS (β₃)
+
+O modelo de regressão ajustado foi:
+
+$$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2 + \varepsilon$$
+
+O valor estimado do coeficiente de interação obtido via OLS foi:
+
+$$\hat{\beta}_3 = \mathbf{-13{,}872}$$
+
+---
+
+### Comparação e Relação entre os Dois Valores
+
+| Método | Valor |
+|---|---|
+| Efeito de interação (manual) | **−27,74 ms** |
+| Coeficiente β₃ (regressão OLS) | **−13,87** |
+
+Os dois valores **não são iguais**, mas estão relacionados por um fator exato de **2**:
+
+$$E_{T \times M} = 2 \times \hat{\beta}_3 \implies -27{,}74 \approx 2 \times (-13{,}87) = -27{,}74 \checkmark$$
+
+**Por que essa diferença?**
+
+No planejamento fatorial 2², o efeito principal e o efeito de interação são calculados como **contrastes normalizados**: a mudança total ao ir do nível −1 ao nível +1, dividida por 2. Já na regressão OLS com codificação ±1, o coeficiente β₃ representa a variação por **unidade de x₁x₂**, e como x₁x₂ varia de −1 a +1 (amplitude de 2), o coeficiente representa metade do efeito total.
+
+Matematicamente:
+
+$$E_{interacao} = 2 \times \hat{\beta}_3$$
+
+**Conclusão:** Não há inconsistência entre os dois métodos — ambos são concordantes e representam o mesmo fenômeno, apenas em escalas diferentes. O efeito de interação é negativo e estatisticamente significativo (p < 0,001) em ambas as abordagens, confirmando que **threads e memória interagem** de forma que a combinação dos dois no nível alto (+1) gera um resultado maior do que a soma dos efeitos individuais.
+
+---
