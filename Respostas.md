@@ -248,12 +248,12 @@ $$\hat{y} = 200{,}408 - 33{,}749\,X_1 - 28{,}334\,X_2 - 13{,}872\,X_1 X_2$$
 
 | Threads (X₁) | Memória (X₂) | Ŷ predito | Média observada |
 |:---:|:---:|:---:|:---:|
-| −1 | −1 | 200,408 + 33,749 + 28,334 + 13,872 = **276,36** | 248,62 |
-| −1 | +1 | 200,408 + 33,749 − 28,334 − 13,872 = **191,95** | 219,69 |
-| +1 | −1 | 200,408 − 33,749 + 28,334 − 13,872 = **181,12** | 208,87 |
-| +1 | +1 | 200,408 − 33,749 − 28,334 + 13,872 = **152,20** | 124,45 |
+| −1 | −1 | 200,408 + 33,749 + 28,334 − 13,872 = **248,62** | 248,62 |
+| −1 | +1 | 200,408 + 33,749 − 28,334 + 13,872 = **219,69** | 219,69 |
+| +1 | −1 | 200,408 − 33,749 + 28,334 + 13,872 = **208,87** | 208,87 |
+| +1 | +1 | 200,408 − 33,749 − 28,334 − 13,872 = **124,45** | 124,45 |
 
-> **Nota:** Os valores preditos acima diferem das médias observadas por grupo porque o modelo OLS minimiza os resíduos em relação às **48 observações individuais** (não às médias de grupo). Não obstante, o modelo explica **R² = 0,986** da variância total, confirmando excelente ajuste.
+> **Nota:** Como o planejamento é fatorial 2² balanceado e o modelo inclui o termo de interação, os valores preditos pelo modelo coincidem com as médias observadas em cada combinação dos fatores. O modelo explica **R² = 0,986** da variância total, confirmando excelente ajuste.
 
 ---
 
@@ -553,5 +553,64 @@ Não há evidência visual forte de heterocedasticidade. O gráfico não apresen
 Existe uma **diferença moderada de dispersão** na configuração **(+1, +1)**, cujo desvio padrão residual foi maior que os demais. Porém, isoladamente, esse comportamento não é suficiente para afirmar que há heterocedasticidade relevante no modelo.
 
 **Conclusão:** os resíduos apresentam comportamento aproximadamente aleatório e centrado em zero. Portanto, com base na análise gráfica e nos valores obtidos, **não há evidência forte de heterocedasticidade**.
+
+---
+
+## Questão 10 — Consistência entre β₁ e o Efeito Principal de Threads
+
+O coeficiente estimado para Threads na regressão foi:
+
+$$\hat{\beta}_1 = -33{,}749$$
+
+Na Questão 01, o efeito principal de Threads calculado manualmente foi:
+
+$$E_{Threads} = -67{,}50 \text{ ms}$$
+
+---
+
+### Comparação entre β₁ e o efeito principal
+
+Como as variáveis do experimento foram codificadas em **-1 e +1**, o coeficiente da regressão representa **metade do efeito principal**. Isso ocorre porque a mudança de um nível baixo para um nível alto não é de 1 unidade, mas sim de 2 unidades:
+
+$$-1 \rightarrow +1 \Rightarrow \Delta X_1 = 2$$
+
+Assim:
+
+$$E_{Threads} = 2 \times \hat{\beta}_1$$
+
+Substituindo o valor estimado:
+
+$$E_{Threads} = 2 \times (-33{,}749) = -67{,}498 \text{ ms}$$
+
+Esse resultado é praticamente igual ao efeito principal calculado manualmente:
+
+$$\boxed{-67{,}498 \approx -67{,}50 \text{ ms}}$$
+
+---
+
+### Interpretação do sinal
+
+O sinal de $\hat{\beta}_1$ é **negativo**, o que indica que aumentar Threads de -1 para +1 reduz o tempo de execução. Isso é consistente com as médias observadas no dataset:
+
+| Memória | Média com Threads = -1 | Média com Threads = +1 | Diferença |
+|---:|---:|---:|---:|
+| -1 | 248,62 ms | 208,87 ms | -39,75 ms |
+| +1 | 219,69 ms | 124,45 ms | -95,24 ms |
+
+Em ambos os níveis de Memória, aumentar Threads diminui o tempo de execução. A média dessas duas reduções é:
+
+$$\frac{-39{,}75 + (-95{,}24)}{2} = -67{,}50 \text{ ms}$$
+
+---
+
+### Conclusão
+
+Sim, o sinal e a magnitude de $\hat{\beta}_1$ são consistentes com o efeito principal de Threads.
+
+O coeficiente $\hat{\beta}_1 = -33{,}749$ tem sinal negativo, indicando redução no tempo de execução quando o número de threads aumenta. Além disso, sua magnitude corresponde exatamente à metade do efeito principal calculado manualmente:
+
+$$2 \times \hat{\beta}_1 = -67{,}498 \text{ ms}$$
+
+Portanto, a regressão e o cálculo fatorial levam à mesma interpretação: **aumentar o número de threads reduz significativamente o tempo de execução do sistema**.
 
 ---
