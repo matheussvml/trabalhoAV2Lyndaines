@@ -718,3 +718,77 @@ Eu escolheria a configuração **Threads = +1 e Memória = +1**, pois ela aprese
 Assim, essa configuração é a melhor escolha para minimizar o tempo de execução do sistema.
 
 ---
+
+## Questão 12 — Possível Interpretação Errada por Análise Isolada
+
+Sim, existe um resultado que poderia levar a uma interpretação errada se fosse analisado isoladamente: **os efeitos principais de Threads e Memória sem considerar a interação entre eles**.
+
+---
+
+### Risco de analisar apenas os efeitos principais
+
+Na análise dos efeitos principais, obtivemos:
+
+| Efeito | Valor |
+|---|---:|
+| Threads | -67,50 ms |
+| Memória | -56,67 ms |
+| Interação Threads × Memória | -27,74 ms |
+
+Se alguém analisasse apenas os efeitos principais, poderia concluir que Threads e Memória atuam de forma independente, ou seja, que basta somar separadamente os ganhos de cada fator. Porém, essa interpretação seria incompleta, pois o efeito de um fator depende do nível do outro.
+
+---
+
+### Exemplo com Threads
+
+O efeito de aumentar Threads não é igual em todos os níveis de Memória:
+
+| Memória | Média com Threads = -1 | Média com Threads = +1 | Efeito de aumentar Threads |
+|---:|---:|---:|---:|
+| -1 | 248,62 ms | 208,87 ms | -39,75 ms |
+| +1 | 219,69 ms | 124,45 ms | -95,24 ms |
+
+Se fosse observado apenas o efeito principal médio de Threads, **-67,50 ms**, perderíamos uma informação importante: aumentar Threads gera um ganho muito maior quando a Memória também está no nível alto.
+
+---
+
+### Exemplo com Memória
+
+O mesmo acontece com Memória:
+
+| Threads | Média com Memória = -1 | Média com Memória = +1 | Efeito de aumentar Memória |
+|---:|---:|---:|---:|
+| -1 | 248,62 ms | 219,69 ms | -28,93 ms |
+| +1 | 208,87 ms | 124,45 ms | -84,42 ms |
+
+Analisar apenas o efeito principal médio de Memória, **-56,67 ms**, esconderia o fato de que o ganho da Memória é muito mais forte quando o sistema usa mais Threads.
+
+---
+
+### Risco de interpretar β₁ isoladamente
+
+Outro ponto que pode gerar erro é interpretar o coeficiente:
+
+$$\hat{\beta}_1 = -33{,}749$$
+
+como se ele representasse sempre o mesmo ganho de Threads em qualquer situação. Na verdade, como o modelo possui interação, o efeito de Threads depende de Memória:
+
+$$\hat{y} = 200{,}408 - 33{,}749X_1 - 28{,}334X_2 - 13{,}872X_1X_2$$
+
+Por causa do termo $\hat{\beta}_3X_1X_2$, o impacto de Threads muda conforme o valor de $X_2$. Portanto, $\hat{\beta}_1$ não deve ser interpretado sozinho, mas em conjunto com o coeficiente de interação:
+
+$$\hat{\beta}_3 = -13{,}872$$
+
+---
+
+### Conclusão
+
+O resultado que mais poderia levar a uma interpretação errada é a análise isolada dos efeitos principais ou dos coeficientes principais da regressão, ignorando a interação.
+
+A conclusão correta é que **Threads e Memória não atuam de forma independente**. O melhor desempenho ocorre quando ambos estão no nível alto:
+
+$$Threads = +1,\quad Memória = +1$$
+
+Essa combinação gera o menor tempo médio observado, **124,45 ms**, justamente porque há um efeito de interação que intensifica o ganho quando os dois fatores são aumentados simultaneamente.
+
+---
