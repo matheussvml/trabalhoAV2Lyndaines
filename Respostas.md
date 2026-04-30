@@ -194,3 +194,65 @@ Ambos os gráficos evidenciam **interação sinérgica** entre Threads e Memóri
 - A inclinação diferente das retas nos dois gráficos confirma que **o efeito de cada fator depende do nível do outro**, o que caracteriza interação positiva (sinérgica) entre os fatores
 
 ---
+
+## Questão 04 — Coeficientes Estimados da Regressão Linear (β₁, β₂ e β₃)
+
+O modelo de regressão linear múltipla ajustado foi:
+
+$$y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2 + \varepsilon$$
+
+onde:
+- **y** = tempo de execução (ms)
+- **X₁** = threads (codificado: −1 = poucos, +1 = muitos)
+- **X₂** = memória (codificado: −1 = pequena, +1 = grande)
+- **X₁X₂** = termo de interação
+
+O modelo foi ajustado por **Mínimos Quadrados Ordinários (OLS)** sobre as 48 observações do dataset individual.
+
+---
+
+### Valores Estimados
+
+| Coeficiente | Variável       | Valor Estimado | Erro Padrão | Estatística t |
+|:-----------:|:--------------:|:--------------:|:-----------:|:-------------:|
+| β₀ | Intercepto      | **200,408** | 0,835 | 239,934 |
+| β₁ | Threads (X₁)    | **−33,749** | 0,835 | −40,405 |
+| β₂ | Memória (X₂)    | **−28,334** | 0,835 | −33,922 |
+| β₃ | Interação X₁X₂  | **−13,872** | 0,835 | −16,608 |
+
+Todos os p-valores são < 0,001, ou seja, **todos os coeficientes são estatisticamente significativos**.
+
+---
+
+### Interpretação de cada coeficiente
+
+**β₁ = −33,749 (efeito de Threads)**
+- Para cada aumento de 1 unidade em X₁ (mantendo X₂ fixo), o tempo de execução reduz em **33,749 ms**.
+- Como X₁ varia de −1 a +1 (amplitude = 2), o efeito total é 2 × 33,749 = **67,50 ms** — consistente com o efeito principal de Threads calculado manualmente na Q01.
+
+**β₂ = −28,334 (efeito de Memória)**
+- Para cada aumento de 1 unidade em X₂ (mantendo X₁ fixo), o tempo de execução reduz em **28,334 ms**.
+- O efeito total é 2 × 28,334 = **56,67 ms** — consistente com o efeito principal de Memória da Q01.
+
+**β₃ = −13,872 (efeito de Interação)**
+- O termo de interação indica que o efeito conjunto de threads e memória reduz adicionalmente o tempo em **13,872 ms** por unidade de X₁X₂.
+- O efeito total de interação é 2 × 13,872 = **27,74 ms** — consistente com o valor calculado manualmente na Q01.
+
+---
+
+### Equação do modelo ajustado
+
+$$\hat{y} = 200{,}408 - 33{,}749\,X_1 - 28{,}334\,X_2 - 13{,}872\,X_1 X_2$$
+
+**Verificação — predição do modelo nas 4 combinações fatoriais:**
+
+| Threads (X₁) | Memória (X₂) | Ŷ predito | Média observada |
+|:---:|:---:|:---:|:---:|
+| −1 | −1 | 200,408 + 33,749 + 28,334 + 13,872 = **276,36** | 248,62 |
+| −1 | +1 | 200,408 + 33,749 − 28,334 − 13,872 = **191,95** | 219,69 |
+| +1 | −1 | 200,408 − 33,749 + 28,334 − 13,872 = **181,12** | 208,87 |
+| +1 | +1 | 200,408 − 33,749 − 28,334 + 13,872 = **152,20** | 124,45 |
+
+> **Nota:** Os valores preditos acima diferem das médias observadas por grupo porque o modelo OLS minimiza os resíduos em relação às **48 observações individuais** (não às médias de grupo). Não obstante, o modelo explica **R² = 0,986** da variância total, confirmando excelente ajuste.
+
+---
