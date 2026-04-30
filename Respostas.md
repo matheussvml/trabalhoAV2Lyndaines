@@ -333,3 +333,49 @@ O valor crítico é: **t_crítico(44, α/2 = 0,025) ≈ ±2,015**
 **Conclusão geral:** Os três coeficientes são estatisticamente significativos ao nível de 5%. O modelo confirma que tanto os efeitos principais (Threads e Memória) quanto o efeito de interação entre eles exercem influência real e significativa sobre o tempo de execução do sistema.
 
 ---
+
+## Questão 06 — Estatística F e Significância Global do Modelo
+
+O teste F avalia se o modelo de regressão como um todo é significativo, ou seja, se pelo menos um dos coeficientes é diferente de zero.
+
+**Hipóteses do teste F global:**
+- **H₀:** β₁ = β₂ = β₃ = 0 (nenhum preditor tem efeito — o modelo não é útil)
+- **H₁:** pelo menos um βᵢ ≠ 0 (o modelo explica a variação de y)
+
+---
+
+### Valores Obtidos da Regressão OLS
+
+| Estatística | Valor |
+|---|---|
+| **Estatística F** | **1019,70** |
+| **p-valor (Prob > F)** | **< 0,001** (1,16 × 10⁻⁴⁰) |
+| R² | 0,986 |
+| R² ajustado | 0,985 |
+| Graus de liberdade do modelo (k) | 3 |
+| Graus de liberdade dos resíduos | 44 |
+| n (observações) | 48 |
+
+---
+
+### Cálculo da Estatística F
+
+A estatística F é calculada como:
+
+$$F = \frac{SQ_{Regressão} / k}{SQ_{Resíduos} / (n - k - 1)} = \frac{R^2 / k}{(1 - R^2) / (n - k - 1)}$$
+
+$$F = \frac{0{,}986 / 3}{(1 - 0{,}986) / (48 - 3 - 1)} = \frac{0{,}3287}{0{,}000318} \approx \mathbf{1019{,}70}$$
+
+---
+
+### Conclusão sobre a Significância Global
+
+O valor crítico de F para α = 0,05 com (3, 44) graus de liberdade é **F_crítico ≈ 2,82**.
+
+Como **F calculado = 1019,70 >> F_crítico = 2,82**, e o **p-valor = 1,16 × 10⁻⁴⁰ << α = 0,05**:
+
+> **Rejeita-se H₀. O modelo é globalmente significativo.**
+
+O conjunto de preditores (Threads, Memória e a Interação) explica de forma estatisticamente significativa a variação no tempo de execução. O R² = **0,986** indica que **98,6% da variabilidade total** do tempo de execução é explicada pelo modelo, o que caracteriza um ajuste excelente. Apenas 1,4% da variação é devida a fatores não contemplados (ruído aleatório).
+
+---
